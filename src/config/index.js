@@ -1,3 +1,1 @@
-export default {
-  //
-}
+export const baseURL = process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:10000';
