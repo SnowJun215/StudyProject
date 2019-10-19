@@ -45,26 +45,6 @@ export default {
       }).catch(err => {
         console.log(err);
       })
-      getUserInfo({userId: 21}).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
-      getUserInfo({userId: 21}).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
-      getUserInfo({userId: 21}).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
-      getUserInfo({userId: 21}).then(res => {
-        console.log(res);
-      }).catch(err => {
-        console.log(err);
-      })
     }
   },
   beforeRouteEnter (to, from, next) {
