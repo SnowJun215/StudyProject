@@ -39,7 +39,7 @@ class HttpRequest {
       return Promise.reject(error)
     });
     instance.interceptors.response.use(res => {
-      console.log('from filter', res);
+      // console.log('from filter', res);
       const {data, status} = res;
       delete this.queue[url];
       if(!Object.keys(this.queue).length) {
