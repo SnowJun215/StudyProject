@@ -1,7 +1,9 @@
 <template>
   <div class="layout-wrapper">
     <Layout class="layout-outer">
-      <Sider collapsible hide-trigger breakpoint="sm" v-model="collapsed"></Sider>
+      <Sider width="300" collapsible hide-trigger breakpoint="sm" v-model="collapsed">
+        <side-menu :collapsed="collapsed" :list="menuList"></side-menu>
+      </Sider>
       <Layout>
         <Header class="header-wrapper">
           <Icon :class="triggerClass" @click.native="handleCollapsed" type="md-menu" :size="32" />
@@ -17,12 +19,69 @@
 </template>
 
 <script>
+  import SideMenu from '_c/side-menu';
   export default {
     name: "layout",
     data () {
       return {
-        collapsed: false
+        collapsed: false,
+        menuList: [
+          {
+            title: '11111',
+            name: 'menu1',
+            icon: 'md-aperture'
+          },
+          {
+            title: '22222',
+            name: 'menu2',
+            icon: 'md-aperture'
+          },
+          {
+            title: '33333',
+            name: 'menu3',
+            icon: 'md-aperture',
+            children: [
+              {
+                title: '33333-111',
+                name: 'menu31',
+                icon: 'md-aperture'
+              },
+              {
+                title: '33333-222',
+                name: 'menu32',
+                icon: 'md-aperture',
+                children: [
+                  {
+                    title: '33333-222-111',
+                    name: 'menu321',
+                    icon: 'md-aperture'
+                  },
+                  {
+                    title: '33333-222-222',
+                    name: 'menu322',
+                    icon: 'md-aperture',
+                    children: [
+                      {
+                        title: '33333-222-222-111',
+                        name: 'menu3221',
+                        icon: 'md-aperture'
+                      },
+                      {
+                        title: '33333-222-222-222',
+                        name: 'menu3222',
+                        icon: 'md-aperture'
+                      },
+                    ]
+                  },
+                ]
+              },
+            ]
+          },
+        ]
       }
+    },
+    components: {
+      SideMenu
     },
     computed: {
       triggerClass () {
