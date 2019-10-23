@@ -4,11 +4,11 @@
 <!--      <router-link :to="{name: 'home'}">Home</router-link> |-->
 <!--      <router-link :to="{name: 'about'}">About</router-link>-->
 <!--    </div>-->
-    <transition-group :name="routerTransition">
+<!--    <transition-group :name="routerTransition">-->
       <router-view key="default"/>
       <router-view key="email" name="email"/>
       <router-view key="tel" name="tel"/>
-    </transition-group>
+<!--    </transition-group>-->
   </div>
 </template>
 
@@ -28,6 +28,12 @@
 </script>
 
 <style lang="scss">
+  html, body {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+  }
   /* 页面进入的效果 start*/
   /*进入前*/
   .router-enter {
@@ -61,8 +67,9 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /*text-align: center;*/
   color: #2c3e50;
+  height: 100%;
 }
 #nav {
   padding: 30px;

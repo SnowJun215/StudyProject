@@ -1,12 +1,25 @@
 <template>
   <div class="home">
-    <p>{{food}}</p>
-    <button @click="handleClick('back')">返回上一页</button>
-    <button @click="handleClick('push')">跳转到parent</button>
-    <button @click="handleClick('replace')">替换到parent</button>
-    <button @click="getInfo" :style="{background: bgColor}">请求数据</button>
-    <img :src="url" alt="">
-    <button @click="handleLogout">退出登录</button>
+<!--    <p>{{food}}</p>-->
+<!--    <button @click="handleClick('back')">返回上一页</button>-->
+<!--    <button @click="handleClick('push')">跳转到parent</button>-->
+<!--    <button @click="handleClick('replace')">替换到parent</button>-->
+<!--    <button @click="getInfo" :style="{background: bgColor}">请求数据</button>-->
+<!--    <img :src="url" alt="">-->
+<!--    <button @click="handleLogout">退出登录</button>-->
+    <Row>
+      <Col></Col>
+    </Row>
+    <Row :gutter="10">
+      <Col :span="12"></Col>
+      <Col :span="12"></Col>
+    </Row>
+    <Row :gutter="10" class="blue">
+      <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
+      <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
+      <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
+      <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
+    </Row>
   </div>
 </template>
 
@@ -82,3 +95,20 @@ export default {
   // }
 }
 </script>
+
+<style scoped lang="less">
+.home {
+  .ivu-col {
+    height: 50px;
+    background: pink;
+    margin-top: 10px;
+    background-clip: content-box;
+  }
+  .blue {
+    .ivu-col {
+      background: blue;
+      background-clip: content-box;
+    }
+  }
+}
+</style>
