@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {baseURL} from "@/config";
+import {getToken} from "@/lib/util";
 
 class HttpRequest {
   constructor(baseUrl = baseURL) {
@@ -34,20 +35,21 @@ class HttpRequest {
         console.log('添加全局loading');
       }
       this.queue[url] = true;
+      config.headers.Authorization = getToken();
       return config;
     }, error => {
       return Promise.reject(error)
     });
     instance.interceptors.response.use(res => {
       // console.log('from filter', res);
-      const {data, status} = res;
+      const {data} = res;
       delete this.queue[url];
       if(!Object.keys(this.queue).length) {
         // 队列中不存在请求
         // Spin.hide();
         console.log('隐藏全局loading');
       }
-      return {data, status};
+      return data;
     }, error => {
       delete this.queue[url];
       if(!Object.keys(this.queue).length) {

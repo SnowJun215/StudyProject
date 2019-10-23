@@ -6,6 +6,7 @@
     <button @click="handleClick('replace')">替换到parent</button>
     <button @click="getInfo" :style="{background: bgColor}">请求数据</button>
     <img :src="url" alt="">
+    <button @click="handleLogout">退出登录</button>
   </div>
 </template>
 
@@ -13,6 +14,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import {getUserInfo} from "@/api/user";
+import {mapActions} from 'vuex';
 
 export default {
   name: 'home',
@@ -32,6 +34,7 @@ export default {
     HelloWorld
   },
   methods: {
+    ...mapActions(['logout']),
     handleClick (type) {
       if(type === 'back') {
         this.$router.back();
@@ -53,6 +56,12 @@ export default {
         this.bgColor = res.data.color;
       }).catch(err => {
         console.log(err);
+      })
+    },
+    handleLogout () {
+      this.logout();
+      this.$router.push({
+        name: 'login'
       })
     }
   },

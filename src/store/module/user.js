@@ -1,3 +1,6 @@
+import {login, authorization} from '@/api/user'
+import {setToken} from "@/lib/util";
+
 const state = {
   userName: 'test'
 }
@@ -17,6 +20,37 @@ const mutations = {
 const actions = {
   updateUserName({commit, state, rootState, dispatch}) {
     // rootState.appName;
+  },
+  login ({commit}, {userName, password}) {
+    return new Promise((resolve, reject) => {
+      login({userName, password}).then(res => {
+        if (res.code === 200 && res.data.token) {
+          setToken(res.data.token);
+          resolve(res);
+        } else {
+          reject(new Error('error'));
+        }
+      }).catch(err => {
+        reject(err);
+      })
+    })
+  },
+  authorization ({commit}, token) {
+    return new Promise((resolve, reject) => {
+      authorization().then(res => {
+        if (res.code === 200) {
+          setToken(res.data.token);
+          resolve(res);
+        }else {
+          reject(new Error('token error'));
+        }
+      }).catch(err=> {
+        reject(err);
+      })
+    })
+  },
+  logout () {
+    setToken('');
   }
 }
 
