@@ -1,10 +1,12 @@
 import Mock from 'mockjs'
 import {getUserInfo} from "./response/user";
+import {getTableData} from "./response/data";
 const Random = Mock.Random
 // url写法
 // Mock.mock('http://localhost:10000/getUserInfo', 'post',  getUserInfo);
 // 正则
 Mock.mock(/\/getUserInfo/, 'post',  getUserInfo);
+Mock.mock(/\/getTableData/, 'get',  getTableData);
 // 模板
 // Mock.mock(/\/getUserInfo/, 'post',  {name: 'June_Test1'});
 
