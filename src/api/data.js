@@ -20,3 +20,14 @@ export const getFileList = () => {
     method: 'GET'
   }))
 };
+
+export const deleteFile = (id, type) => {
+  return axios.request({
+    url: '/deleteFile',
+    method: 'POST',
+    data: {
+      type,
+      id
+    }
+  })
+};

@@ -84,6 +84,7 @@
   }
   .ivu-btn {
     margin-left: 6px;
+    float: right;
   }
 }
 </style>

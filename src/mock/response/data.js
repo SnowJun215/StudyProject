@@ -50,3 +50,10 @@ export const getFolderList = () => {
   });
   return arr;
 };
+
+export const deleteFile = () => {
+  const template = {
+    'isDelete|3-7': false
+  };
+  return Mock.mock(template);
+};

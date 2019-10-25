@@ -1,34 +1,70 @@
 <template>
   <div class="folder-wrapper">
-    <Tree :data="folderTree" :render="renderFunc"></Tree>
+<!--    <Tree :data="folderTree" :render="renderFunc"></Tree>-->
+    <folder-tree
+      :folder-list.sync="folderList"
+      :file-list.sync="fileList"
+      :folder-drop="folderDrop"
+      :file-drop="fileDrop"
+      :before-delete="beforeDelete" />
   </div>
 </template>
 
 <script>
-  import {getFileList, getFolderList} from "@/api/data";
-  import {putFileInFolder, transferFolderListToTree} from "@/lib/util";
+  import {getFileList, getFolderList, deleteFile} from "@/api/data";
+  import FolderTree from '_c/folder-tree';
 
   export default {
-    name: "folder-tree",
+    name: "folder-tree-view",
     data () {
       return {
-        folderTree: [],
-        renderFunc: (h, {root, node, data}) => {
-          return (
-            <div class="tree-item">
-              {
-                data.type === 'folder' && <Icon type="ios-folder" color="#2d8cf0" style="margin-right: 10px" />
-              }
-              {data.title}
-            </div>
-          );
-        }
+        folderList: [],
+        fileList: [],
+        folderDrop: [
+          {
+            name: 'rename',
+            title: '重命名'
+          },
+          {
+            name: 'delete',
+            title: '删除文件夹'
+          }
+        ],
+        fileDrop: [
+          {
+            name: 'rename',
+            title: '重命名'
+          },
+          {
+            name: 'delete',
+            title: '删除文件'
+          }
+        ]
+      }
+    },
+    components: {
+      FolderTree
+    },
+    methods: {
+      beforeDelete () {
+        return new Promise((resolve, reject) => {
+          deleteFile().then(res => {
+            console.log(res);
+            if (res.isDelete) {
+              resolve();
+            } else {
+              reject(new Error('error'));
+            }
+          }).catch(err => {
+            reject(err);
+          })
+        })
       }
     },
     mounted() {
       Promise.all([getFolderList(), getFileList()]).then(res => {
-        console.log(res);
-        this.folderTree = transferFolderListToTree(putFileInFolder(res[0], res[1]));
+        this.folderList = res[0];
+        this.fileList = res[1];
       })
     }
   }
@@ -37,11 +73,5 @@
 <style lang="less">
 .folder-wrapper {
   width: 300px;
-  .tree-item {
-    display: inline-block;
-    width: ~"calc(100% - 50px)";
-    height: 30px;
-    line-height: 30px;
-  }
 }
 </style>
