@@ -31,7 +31,7 @@
                     <i-button type="text" size="small"
                               on-click={this.handleSave.bind(this, data)}><Icon type="md-checkmark" /></i-button>
                     <i-button type="text" size="small"
-                              on-click={this.handleClick.bind(this)}><Icon type="md-close" /></i-button>
+                              on-click={this.handleCancel.bind(this)}><Icon type="md-close" /></i-button>
                   </div>
                   : data.title
               }
@@ -136,11 +136,11 @@
         this.$nextTick(() => {
           expandSpecifiedFolder(this.folderTree, data.folder_id);
         });
+        this.handleCancel();
+      },
+      handleCancel () {
         this.currentRenamingId = '';
         this.currentRenamingContent = '';
-      },
-      handleClick () {
-
       }
     },
     watch: {
