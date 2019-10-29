@@ -16,6 +16,16 @@ module.exports = {
   productionSourceMap: false,
   // 跨域
   devServer: {
-    proxy: 'http://localhost:3000'
+    proxy: {
+      '/index': {
+        target: 'http://localhost:3000'
+      },
+      '/user': {
+        target: 'http://localhost:3000'
+      },
+      '/file': {
+        target: 'http://localhost:3001'
+      }
+    }
   },
 }

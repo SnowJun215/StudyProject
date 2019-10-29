@@ -31,3 +31,34 @@ export const deleteFile = (id, type) => {
     }
   })
 };
+
+export const getFilesList = () => {
+  return axios.request({
+    url: 'file/get_file_list',
+    method: 'GET',
+    params: {
+      userId: '1'
+    }
+  })
+};
+
+export const getFile = (key, type) => {
+  return axios.request({
+    url: 'file/get_file',
+    method: 'POST',
+    data: {
+      key,
+      type
+    }
+  });
+};
+
+export const delFile = (key) => {
+  return axios.request({
+    url: 'file/delete_file',
+    method: 'DELETE',
+    data: {
+      key,
+    }
+  })
+};
