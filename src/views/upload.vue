@@ -3,7 +3,7 @@
     <Upload ref="upload" :action="`${baseURL}/file/upload_file`" multiple :before-upload="beforeUpload" :on-success="onSuccess" :show-upload-list="false">
       <Button icon="ios-cloud-upload-outline">Upload Files</Button>
     </Upload>
-    <Button @click="handleUpload">上传</Button>
+    <Button @click="handleUpload">上传{{file ? `“${file.name}”` : ''}}</Button>
     <Table :columns="columns" :data="fileList"></Table>
     <Modal v-model="showModal">
       <div style="height: 300px; overflow: auto">{{content}}</div>
@@ -48,11 +48,12 @@
           {
             title: '操作', key: 'handle', render: (h, {row}) => {
               return (
-                <div>
-                  <i-button on-click={this.download.bind(this, row.key)}>下载</i-button>
-                  <i-button disabled={!row.file_type.includes('text')} on-click={this.showFileContent.bind(this, row.key)}>显示内容</i-button>
-                  <i-button on-click={this.deleteFile.bind(this, row)}>删除</i-button>
-                </div>
+                <button-group shape="circle" size="small">
+                  <i-button on-click={this.download.bind(this, row.key)} icon="md-download" type="success" ghost/>
+                  <i-button disabled={!row.file_type.includes('text')}
+                            on-click={this.showFileContent.bind(this, row.key)} icon="md-eye" type="info" ghost/>
+                  <i-button on-click={this.deleteFile.bind(this, row)} icon="md-trash" type="error" ghost/>
+                </button-group>
               )
             }
           },
@@ -66,6 +67,10 @@
         return false;
       },
       handleUpload () {
+        if (!this.file) {
+          this.$Message.error('请先选择文件');
+          return false;
+        }
         this.$refs.upload.post(this.file);
       },
       onSuccess () {
