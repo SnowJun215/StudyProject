@@ -24,6 +24,10 @@ class HttpRequest {
     return config;
   }
 
+  destroy (url) {
+    delete this.queue[url];
+  }
+
   /**
    * 拦截器
    * @param instance
@@ -35,7 +39,6 @@ class HttpRequest {
         // 队列中不存在请求
         // Spin.show();
         v.$Spin.show();
-        console.log('添加全局loading');
       }
       this.queue[url] = true;
       config.headers.Authorization = getToken();
@@ -46,23 +49,21 @@ class HttpRequest {
     instance.interceptors.response.use(res => {
       // console.log('from filter', res);
       const {data} = res;
-      delete this.queue[url];
+      this.destroy(url);
       if(!Object.keys(this.queue).length) {
         // 队列中不存在请求
         // Spin.hide();
         v.$Spin.hide();
-        console.log('隐藏全局loading');
       }
       return data;
     }, error => {
-      delete this.queue[url];
+      this.destroy(url);
       if(!Object.keys(this.queue).length) {
         // 队列中不存在请求
         // Spin.hide();
         v.$Spin.hide();
-        console.log('隐藏全局loading');
       }
-      return Promise.reject(error);
+      return Promise.reject(error.response.data);
     })
   }
 

@@ -62,3 +62,11 @@ export const delFile = (key) => {
     }
   })
 };
+
+export const sendFormData = ({url, data}) => {
+  return axios.request({
+    url: url,
+    method: 'POST',
+    data
+  })
+};

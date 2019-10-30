@@ -23,6 +23,9 @@ module.exports = {
       '/user': {
         target: 'http://localhost:3000'
       },
+      '/data': {
+        target: 'http://localhost:3000'
+      },
       '/file': {
         target: 'http://localhost:3001'
       }
