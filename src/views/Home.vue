@@ -20,6 +20,8 @@
       <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
       <Col :lg="6" :md="12" :sm="24" :xs="24"></Col>
     </Row>
+    <Button v-if="rules.edit_button">编辑</Button>
+    <Button v-if="rules.publish_button">发布</Button>
   </div>
 </template>
 
@@ -27,7 +29,7 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import {getUserInfo} from "@/api/user";
-import {mapActions} from 'vuex';
+import {mapState, mapActions} from 'vuex';
 
 export default {
   name: 'home',
@@ -45,6 +47,11 @@ export default {
   },
   components: {
     HelloWorld
+  },
+  computed: {
+    ...mapState({
+      rules: state => state.user.rules
+    })
   },
   methods: {
     ...mapActions(['logout']),

@@ -5,9 +5,10 @@ import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
 import user from './module/user'
+import router from './module/router'
 import saveInLocal from './plugin/saveInLocal'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   strict: process.env.NODE_ENV === 'development', // 开启严格模式
@@ -16,7 +17,8 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {
-    user
+    user,
+    router
   },
-  plugins: [saveInLocal]
+  // plugins: [saveInLocal]
 })

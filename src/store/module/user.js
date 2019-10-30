@@ -2,7 +2,8 @@ import {login, authorization} from '@/api/user'
 import {setToken} from "@/lib/util";
 
 const state = {
-  userName: 'test'
+  userName: 'test',
+  rules: {}
 }
 
 const getters = {
@@ -14,6 +15,9 @@ const getters = {
 const mutations = {
   SET_USER_NAME(state, params) {
     state.userName = params;
+  },
+  SET_RULES (state, rules) {
+    state.rules = rules;
   }
 }
 
@@ -40,7 +44,8 @@ const actions = {
       authorization().then(res => {
         if (res.code === 200) {
           setToken(res.data.token);
-          resolve(res);
+          resolve(res.data.rules.page);
+          commit('SET_RULES', res.data.rules.component);
         }else {
           reject(new Error('token error'));
         }
